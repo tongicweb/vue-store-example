@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+         [v-cloak] > * { display:none }
+     </style>
+    <title>Add</title>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+        <div class="container">
+             <header-navbar></header-navbar>
+           <form @submit.prevent="onSubmit">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Product Name</label>
+                <input type="text" class="form-control" :class="{'is-invalid' :isSubmit && form.firstName === ''}" id="exampleInputEmail1" v-model="form.firstName"  placeholder="Product Name">
+                <div class="invalid-feedback" v-if="isSubmit && form.firstName === ''">
+                  กรุณาใส่ Product Name
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Category</label>
+                <select  class="form-control" id="exampleFormControlSelect2" v-model="form.category">
+                  <option value="mobile">มือถือ</option>
+                  <option value="notebook">โน๊ตบุ๊ค</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>     
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src='./assets/js/library/vuex.js'></script>
+    <script src="https://unpkg.com/vuex-persistedstate/dist/vuex-persistedstate.umd.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script type="module" src='./assets/js/store/index.js'></script> -->
+    <script src='./assets/js/components/index.js'></script>
+    <!-- <script type="module" src='./assets/js/app.js'></script>   -->
+    <script src='./assets/js/store/index.js'></script>  
+    <script>
+      var app = new Vue({
+          el: "#app",
+          store,
+          data:{
+             isSubmit :false,
+             form:{
+              firstName:"",
+              category:"mobile",
+             }
+          },
+          created() {
+            store.commit('setPageName','addProducts');
+          },
+          computed: {
+
+          },
+          methods: {
+            onSubmit(){
+              this.isSubmit = true;
+              if(!this.form.firstName) return 
+              if(!this.form.category) return 
+              store.commit('addProduct', this.form);
+              window.location = './index.html'
+            }
+          }
+        });
+      </script>
+</body>
+</html>

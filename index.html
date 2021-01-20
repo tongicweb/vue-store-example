@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    [v-cloak]>* {
+      display: none
+    }
+  </style>
+  <title>Products</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="container">
+      <header-navbar></header-navbar>
+      <button type="button" @click="onClearProducts" class="btn btn-secondary">Clear</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="val,index in products" :key="index">
+            <th scope="row">1</th>
+            <td>{{val.name}}</td>
+            <td>{{val.category}}</td>
+            <td><button type="button" @click="removeProduct(index)" class="btn btn-danger">ลบ</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src='./assets/js/library/vuex.js'></script>
+  <script src="https://unpkg.com/vuex-persistedstate/dist/vuex-persistedstate.umd.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <!-- <script type="module" src='./assets/js/store/index.js'></script> -->
+  <script src='./assets/js/components/index.js'></script>
+  <!-- <script type="module" src='./assets/js/app.js'></script>   -->
+  <script src='./assets/js/store/index.js'></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      store,
+      data: {
+
+      },
+      created() {
+        store.commit('setPageName', 'products');
+      },
+      computed: {
+        products() {
+          return store.state.products
+        }
+      },
+      methods: {
+        onClearProducts() {
+          store.commit('clearProducts');
+        },
+        removeProduct(index) {
+          store.commit('removeProduct', index);
+        }
+
+      }
+    });
+  </script>
+</body>
+
+</html>
